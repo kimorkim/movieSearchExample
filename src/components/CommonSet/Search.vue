@@ -10,6 +10,7 @@
             type="text" 
             placeholder="검색어를 입력 하세요." 
             class="searchItem"
+            @keyup.13="handleSearch"
         />
         <b-button 
             :variant="'primary'" 

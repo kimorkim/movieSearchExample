@@ -19,9 +19,6 @@ import axios from 'axios';
 
 export default {
     name: 'movie-list',
-    created() {
-        console.log('created');
-    },
     data() {
         return {
             text: 'Welcome to Your Vue.js App',
@@ -31,8 +28,18 @@ export default {
     },
     methods: {
         handleSearchMovie(query) {
-            console.log(this.apiKey, query);
+            $.ajax({
+                type:'GET',
+                dataType: 'jsonp',
+                url: `https://apis.daum.net/contents/movie?apikey=${this.apiKey}&q=${query}&output=json`,
+            }).done((data)=> {
+                this.moveList = data.channel.item;
+            }).fail(()=> {
+                this.moveList = []; 
+            });
 
+            return;
+            // 서버 구성 후 사용.
             const config = {
                 method: 'get',
                 url: `https://apis.daum.net/contents/movie?apikey=${this.apiKey}&q=${query}&output=json`,
